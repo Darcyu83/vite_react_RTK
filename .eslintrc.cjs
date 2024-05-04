@@ -29,6 +29,9 @@ module.exports = {
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@@typescript-eslint/no-unsafe-assignment": "off",
     "react-refresh/only-export-components": [
       "warn",
       { allowConstantExport: true },

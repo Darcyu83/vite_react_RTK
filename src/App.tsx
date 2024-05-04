@@ -1,7 +1,9 @@
+import PokemonList from "./pages/pokemon/PokemonList"
+
 function App() {
   return (
     <>
-      <p> APP </p>
+      <PokemonList />
     </>
   )
 }
