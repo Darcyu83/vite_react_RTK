@@ -1,6 +1,11 @@
 import React, { useState } from "react"
-import { useGetPokemonByNameQuery } from "../../redux/services/pokemon/pokemon"
+import {
+  pokemonApi,
+  useGetPokemonByNameQuery,
+} from "../../redux/services/pokemon/pokemon"
 import Pokemon from "./Pokemon"
+import { useSelector } from "react-redux"
+import { useAppSelector } from "../../redux/storeHooks"
 
 interface IProps {}
 
@@ -10,6 +15,10 @@ function PokemonList(props: IProps) {
   const [pollingInterval, setPollingInterval] = useState(0)
   // const { data, error, isLoading } = useGetPokemonByNameQuery("bulbasaur")
 
+  const { queries, config, mutations, provided, subscriptions } =
+    useAppSelector((state) => state.pokemonApi)
+
+  console.log(queries, config, mutations, provided, subscriptions)
   return (
     <div style={{}}>
       <select
