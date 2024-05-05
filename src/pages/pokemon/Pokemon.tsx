@@ -1,5 +1,6 @@
 import React from "react"
-import { useGetPokemonByNameQuery } from "../../redux/services/pokemon/pokemon"
+import { useGetPokemonByNameQueryWithAPI } from "../../redux/services/pokemon/pokemonAPI"
+import useGetPokemonByNameQueryWithThunk from "../../redux/hooks/useGetPokemonByNameQueryWithThunk"
 
 interface IProps {
   name: string
@@ -7,9 +8,16 @@ interface IProps {
 }
 
 function Pokemon({ name, pollingInterval }: IProps) {
-  const { data, error, isLoading } = useGetPokemonByNameQuery(name, {
-    pollingInterval,
-  })
+  // const { data, error, isLoading } = useGetPokemonByNameQueryWithAPI(name, {
+  //   pollingInterval,
+  // })
+
+  const {
+    data,
+    isError: error,
+    isLoading,
+  } = useGetPokemonByNameQueryWithThunk({ name })
+
   return (
     <>
       {error ? (

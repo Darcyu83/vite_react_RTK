@@ -1,8 +1,5 @@
 import React, { useState } from "react"
-import {
-  pokemonApi,
-  useGetPokemonByNameQuery,
-} from "../../redux/services/pokemon/pokemon"
+import { pokemonApi } from "../../redux/services/pokemon/pokemonAPI"
 import Pokemon from "./Pokemon"
 import { useSelector } from "react-redux"
 import { useAppSelector } from "../../redux/storeHooks"

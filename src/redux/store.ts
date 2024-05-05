@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit"
-import { pokemonApi } from "./services/pokemon/pokemon"
+import { pokemonApi } from "./services/pokemon/pokemonAPI"
 import { setupListeners } from "@reduxjs/toolkit/query"
 import { useDispatch } from "react-redux"
+import { pokemonSlice } from "./slices/pokemon"
 
 export const store = configureStore({
   reducer: {
     [pokemonApi.reducerPath]: pokemonApi.reducer,
+    pokemon: pokemonSlice.reducer,
   },
 
   middleware: (getDefaultMiddleware) =>
