@@ -10,15 +10,13 @@ function useGetPokemonByNameQueryWithThunk({ name }: IProps) {
   const dispatch = useAppDispatch()
   const status = useAppSelector((state) => state.pokemon.statusByName[name])
   const data = useAppSelector((state) => state.pokemon.dataByName[name])
-  const globalState = useAppSelector((state) => state)
 
-  console.log("%c globalState === ", "color: red", globalState)
   useEffect(() => {
     if (status === undefined) {
       dispatch(fetchPokemonByName(name))
     }
 
-    console.log("useGetPokemonByNameQueryWithThunk :: ", status, data)
+    // console.log("useGetPokemonByNameQueryWithThunk :: ", status, data)
   }, [status, name, dispatch])
 
   const isUninitialized = status === undefined

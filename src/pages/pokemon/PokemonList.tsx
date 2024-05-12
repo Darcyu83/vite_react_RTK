@@ -26,8 +26,12 @@ function PokemonList(props: IProps) {
         <option value={5000}>5s</option>
       </select>
 
-      {pokemonNms.map((pokemon) => (
-        <Pokemon name={pokemon} pollingInterval={pollingInterval} />
+      {pokemonNms.map((pokemon, idx) => (
+        <Pokemon
+          key={"poke_name_" + pokemon + idx}
+          name={pokemon}
+          pollingInterval={pollingInterval}
+        />
       ))}
     </div>
   )
