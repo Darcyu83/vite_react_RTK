@@ -1,5 +1,15 @@
 # React + TypeScript + Vite + @vitejs/plugin-react-swc
 
+## Breakpoint prefix Minimum width CSS
+
+[테일윈드 홈페이지]<https://tailwindcss.com/docs/responsive-design#using-custom-breakpoints>
+
+sm 640px @media (min-width: 640px) { ... }
+~~ md 768px @media (min-width: 768px) { ... } ~~
+~~ lg 1024px @media (min-width: 1024px) { ... } ~~
+xl 1280px @media (min-width: 1280px) { ... }
+~~ 2xl 1536px @media (min-width: 1536px) { ... } ~~
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
