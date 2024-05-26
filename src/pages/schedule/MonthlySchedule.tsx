@@ -43,6 +43,7 @@ function MonthlySchedule({ todayDateStr }: IProps) {
           )
         })}
 
+        {/* 줄임말 테스트 */}
         <div style={{ width: "100%" }}>
           <p
             className="
