@@ -7,9 +7,11 @@ interface IProps {
 }
 
 function DraggableItem({ idx, info }: IProps) {
+  const itemCategory = idx % 2 === 0 ? "yuds" : "others"
+
   const [{ isDragging }, drag, preview] = useDrag(
     () => ({
-      type: "haha ",
+      type: itemCategory,
       collect: (monitor) => ({
         isDragging: !!monitor.isDragging(),
       }),
@@ -29,7 +31,7 @@ function DraggableItem({ idx, info }: IProps) {
           isDragging ? "text-red-600" : "text-inherit"
         }`}
       >
-        {`Name :: ${info?.name} / Gender :: ${info?.gender}`}
+        {`Name :: ${info?.name} / Gender :: ${info?.gender}:: ${itemCategory}`}
       </div>
     </>
   )

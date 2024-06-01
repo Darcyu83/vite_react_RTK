@@ -27,12 +27,18 @@ function useDndColToCol() {
   const [draggableId, setDraggableId] = useState<string>()
   const [droppableId, sedDroppableId] = useState<string>()
 
+  const adjustItemPosition = (
+    colFrom: string,
+    colTo: string,
+    itemIndex: number
+  ) => {}
   return {
     draggableId,
     setDraggableId,
     droppableId,
     sedDroppableId,
     data,
+    adjustItemPosition,
   }
 }
 

@@ -12,8 +12,10 @@ function DnDWithLib(props: IProps) {
 
   return (
     <DndProvider backend={HTML5Backend}>
+      <div> droppableId:: {droppableId}</div>
+
       <div className="border border-dashed border-red-600 p-10">
-        <DroppableArea data={data} />
+        <DroppableArea data={data} sedDroppableId={sedDroppableId} />
         <DraggableItems />
       </div>
     </DndProvider>
