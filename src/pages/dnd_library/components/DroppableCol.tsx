@@ -19,7 +19,11 @@ function DroppableCol({ colNm, idx, items, sedDroppableId }: IProps) {
         return true
       },
 
-      drop: () => sedDroppableId(colNm),
+      drop: (item) => {
+        console.log("drop ===== ", item)
+        sedDroppableId(colNm)
+        return true
+      },
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
         canDrop: !!monitor.canDrop(),
@@ -40,7 +44,7 @@ function DroppableCol({ colNm, idx, items, sedDroppableId }: IProps) {
     >
       {colNm}:: {acceptableType}
       {items.map((info, idx) => {
-        return <DraggableItem info={info} idx={idx} />
+        return <DraggableItem colNm={colNm} info={info} idx={idx} />
       })}
     </div>
   )

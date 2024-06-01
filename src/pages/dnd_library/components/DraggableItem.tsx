@@ -2,16 +2,18 @@ import { DragPreviewImage, useDrag } from "react-dnd"
 import { Item } from "../useDndColToCol"
 
 interface IProps {
+  colNm: string
   idx: number
   info?: Item
 }
 
-function DraggableItem({ idx, info }: IProps) {
+function DraggableItem({ colNm, idx, info }: IProps) {
   const itemCategory = idx % 2 === 0 ? "yuds" : "others"
 
   const [{ isDragging }, drag, preview] = useDrag(
     () => ({
       type: itemCategory,
+      item: { colNmFrom: colNm, itemIndex: idx, ...info },
       collect: (monitor) => ({
         isDragging: !!monitor.isDragging(),
       }),
