@@ -2,7 +2,7 @@ import React from "react"
 
 interface IProps {}
 
-function DragAndDrop(props: IProps) {
+function DragAndDropOrigin(props: IProps) {
   const onDragStart = (e: React.DragEvent, id: string) => {
     if (!e.dataTransfer) return
 
@@ -33,9 +33,21 @@ function DragAndDrop(props: IProps) {
         onDrop={(e) => {
           onDrop(e)
         }}
-        className="h-96 w-96 border border-red-400 hover:bg-red-400/[.1]"
+        className="h-96 w-96 border border-red-400 hover:bg-red-400/[.4]"
       >
-        Drop Area
+        Drop Area1
+      </div>
+
+      <div
+        id="Droppable"
+        onDragEnter={onDragEnter}
+        onDragOver={onDragOver}
+        onDrop={(e) => {
+          onDrop(e)
+        }}
+        className="h-96 w-96 border border-red-400 hover:bg-lime-400/[.4]"
+      >
+        Drop Area2
       </div>
 
       <div>
@@ -45,7 +57,7 @@ function DragAndDrop(props: IProps) {
           onDragStart={(e) => {
             onDragStart(e, "draggable1")
           }}
-          className="h-16 align-middle bg-lime-100"
+          className="h-16 w-16 align-middle bg-lime-100"
         >
           draggable Item 1
         </div>
@@ -57,4 +69,4 @@ function DragAndDrop(props: IProps) {
   )
 }
 
-export default DragAndDrop
+export default DragAndDropOrigin

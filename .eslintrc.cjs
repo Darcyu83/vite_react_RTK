@@ -40,5 +40,7 @@ module.exports = {
       "warn",
       { allowConstantExport: true },
     ],
+
+    "@typescript-eslint/consistent-indexed-object-style": "off",
   },
 }

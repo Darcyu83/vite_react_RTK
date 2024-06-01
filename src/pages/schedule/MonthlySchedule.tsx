@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import { useMemo } from "react"
 import { makeMonthForCalendar } from "../../utils/calendar/calendar"
 
 interface IProps {
