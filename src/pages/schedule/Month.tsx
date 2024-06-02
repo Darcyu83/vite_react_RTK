@@ -17,12 +17,11 @@ function Month({ todayDateStr }: IProps) {
     <div className="border border-[--border-color-black] min-h-dvh h-full rounded flex flex-col">
       <CalendarHeader todayDateStr={todayDateStr} />
 
-      <div className="w-full h-full flex flex-col">
+      <div className="w-full h-full flex flex-col flex-1">
         {daysOfMonthArr.map((week, idx) => {
           return (
             <>
               {idx === 0 && <WeekRow type="header" idx={idx} week={week} />}
-
               <WeekRow idx={idx} week={week} />
             </>
           )
