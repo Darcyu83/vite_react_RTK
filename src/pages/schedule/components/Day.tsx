@@ -19,18 +19,26 @@ function Day({ type, dateStrMMDD, dateInfo }: IProps) {
   const { year, month, dayNum, tasks } = dateInfo
 
   //   console.log(`${year}-${month}-${dayNum}`)
-  const isToday = useMemo(() => {
-    return format(new Date(), "MM-dd") === dateStrMMDD
-  }, [dateStrMMDD])
+  const { isToday, isOutOfThisMonth } = useMemo(() => {
+    const today = new Date()
+    return {
+      isToday: format(today, "MM-dd") === dateStrMMDD,
+      isOutOfThisMonth: month !== today.getMonth() + 1,
+    }
+  }, [dateStrMMDD, month])
 
   return (
     <div
       key={"week_day_num_" + dateInfo.month + dateInfo.dayNum}
       className={[
         "truncate flex flex-col justify-start items-start flex-1 border border-[--border-color-black] border-t-0 border-l-0 last:border-r-0",
+
+        isOutOfThisMonth && type !== "header"
+          ? "bg-[--bg-color-disabled] text-[--text-color-disabled]"
+          : "",
       ].join(" ")}
     >
-      <div className="w-full">
+      <div className={"w-full"}>
         {type === "header" && (
           <span
             className="
@@ -39,6 +47,7 @@ function Day({ type, dateStrMMDD, dateInfo }: IProps) {
                         truncate
                         align-middle
                         text-center 
+                        px-2 py-3
                     "
           >
             {`${format(new Date(`${year}-${month}-${dayNum}`), "EEE")}`}
@@ -47,15 +56,7 @@ function Day({ type, dateStrMMDD, dateInfo }: IProps) {
 
         {type !== "header" && (
           <span
-            className="
-                        block
-                        text-sm 
-                        sm:text-sm 
-                        lg:text-sm 
-                        truncate
-                        px-2
-                        py-3
-                    "
+            className={"block text-sm sm:text-sm lg:text-sm truncate px-2 py-3"}
           >
             {/* {`${month}월${dayNum}일`} */}
             <div

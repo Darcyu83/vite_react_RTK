@@ -23,10 +23,7 @@ const dummyTaskDataPerDay: {
 
 function WeekRow({ type, idx, week }: IProps) {
   return (
-    <div
-      key={"week_" + idx}
-      className="w-full h-full flex border-l-0 first:border-t flex-1"
-    >
+    <div key={"week_" + idx} className="w-full h-full flex border-l-0 flex-1">
       {week.map((dateInfo) => {
         const { year, month, dayNum } = dateInfo
 

@@ -1,6 +1,7 @@
 import { useMemo } from "react"
 import { makeMonthForCalendar } from "../../utils/calendar/calendar"
 import CalendarHeader from "./components/CalendarHeader"
+import HeaderDays from "./components/HeaderDays"
 import WeekRow from "./components/WeekRow"
 
 interface IProps {
@@ -17,14 +18,11 @@ function Month({ todayDateStr }: IProps) {
     <div className="border border-[--border-color-black] min-h-dvh h-full rounded flex flex-col">
       <CalendarHeader todayDateStr={todayDateStr} />
 
+      <HeaderDays idx={0} week={daysOfMonthArr[0]} />
+
       <div className="w-full h-full flex flex-col flex-1">
         {daysOfMonthArr.map((week, idx) => {
-          return (
-            <>
-              {idx === 0 && <WeekRow type="header" idx={idx} week={week} />}
-              <WeekRow idx={idx} week={week} />
-            </>
-          )
+          return <WeekRow idx={idx} week={week} />
         })}
 
         {/* 줄임말 테스트 */}
