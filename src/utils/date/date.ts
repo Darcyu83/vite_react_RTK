@@ -17,5 +17,5 @@ export const getMonth1stOrLastDay = (date: Date) => {
   const firstDayOfThisMonth = new Date(fullYear, thisMonthIdx, 1)
   const lastDayOfThisMonth = new Date(fullYear, thisMonthIdx + 1, 0)
 
-  return { firstDayOfThisMonth, lastDayOfThisMonth }
+  return { year: fullYear, firstDayOfThisMonth, lastDayOfThisMonth }
 }

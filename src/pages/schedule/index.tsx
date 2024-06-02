@@ -1,11 +1,6 @@
-import React, { useMemo, useState } from "react"
-import {
-  formatDateYYYYMMDDWithHyphen,
-  getMonth1stOrLastDay,
-} from "../../utils/date/date"
-import { differenceInDays } from "date-fns"
-import { makeMonthForCalendar } from "../../utils/calendar/calendar"
-import MonthlySchedule from "./MonthlySchedule"
+import { useState } from "react"
+import { formatDateYYYYMMDDWithHyphen } from "../../utils/date/date"
+import Month from "./Month"
 
 interface IProps {}
 
@@ -15,8 +10,10 @@ function Schedule(props: IProps) {
   )
 
   return (
-    <div>
-      <MonthlySchedule todayDateStr={todayDateStr} />
+    <div className="m-5">
+      <h1>헤더 ----- </h1>
+
+      <Month todayDateStr={todayDateStr} />
     </div>
   )
 }

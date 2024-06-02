@@ -1,3 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --bg-color-disabled: rgb(249, 250, 251);
+  --text-color-disabled: rgb(107 114 128);
+
+  --text-color-black: rgb(55, 65, 81);
+  --text-color-black-intensive: rgb(17 24 39);
+  --bg-color-white: rgb(255 255 255);
+
+  --border-color-black: rgb(229, 231, 235);
+
+  --font-size-title: 16px;
+  --font-size: 12px;
+
+  --primary-color: rgb(79 70 229);
+  --hover-color: var(--primary-color);
+}
+/* 
+html {
+  font-family: Inter var, ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+
+  color: var(--text-color-black);
+  box-sizing: border-box;
+} */
+
+html {
+  font-feature-settings: "cv03", "cv04", "cv11";
+}
+
+body {
+  /* overflow: hidden; */
+  /* --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity)); */
+  font-family: Inter var, ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
