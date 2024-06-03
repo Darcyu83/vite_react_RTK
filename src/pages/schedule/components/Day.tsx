@@ -1,9 +1,12 @@
 import { format } from "date-fns"
 import { useMemo } from "react"
+import { useDrop } from "react-dnd"
+import { TScheduleState } from "../hooks/useScheduleState"
+import Task from "./Task"
 
 interface IProps {
   type?: "header"
-  dateStrMMDD: string
+  thisDayStr: string
   dateInfo: {
     year: number
     month: number
@@ -13,22 +16,59 @@ interface IProps {
       details: string
     }[]
   }
+
+  setMonthlyTasksPerDay: TScheduleState["setMonthlyTasksPerDay"]
 }
 
-function Day({ type, dateStrMMDD, dateInfo }: IProps) {
+function Day({ type, thisDayStr, dateInfo, setMonthlyTasksPerDay }: IProps) {
   const { year, month, dayNum, tasks } = dateInfo
+
+  const [{ isOver, canDrop }, drop] = useDrop(() => ({
+    accept: "task",
+    canDrop: (
+      item: {
+        originDayStr: string
+        index: number
+        taskNm: string
+        details: string
+      },
+      monitor
+    ) => {
+      console.log(item)
+      setMonthlyTasksPerDay((curr) => {
+        const copied = { ...curr }
+
+        copied[item.originDayStr].splice(item.index, 1)
+
+        copied[thisDayStr] = []
+        copied[thisDayStr].concat({
+          taskNm: item.taskNm,
+          details: item.details,
+        })
+
+        return copied
+      })
+      return true
+    },
+    drop: (item) => {},
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+      canDrop: !!monitor.canDrop(),
+    }),
+  }))
 
   //   console.log(`${year}-${month}-${dayNum}`)
   const { isToday, isOutOfThisMonth } = useMemo(() => {
     const today = new Date()
     return {
-      isToday: format(today, "MM-dd") === dateStrMMDD,
+      isToday: format(today, "MM-dd") === thisDayStr,
       isOutOfThisMonth: month !== today.getMonth() + 1,
     }
-  }, [dateStrMMDD, month])
+  }, [thisDayStr, month])
 
   return (
     <div
+      ref={drop}
       key={"week_day_num_" + dateInfo.month + dateInfo.dayNum}
       className={[
         "truncate flex flex-col justify-start items-start flex-1 border border-[--border-color-black] border-t-0 border-l-0 last:border-r-0",
@@ -39,45 +79,31 @@ function Day({ type, dateStrMMDD, dateInfo }: IProps) {
       ].join(" ")}
     >
       <div className={"w-full"}>
-        {type === "header" && (
-          <span
-            className="
-                        block
-                        text-sm sm:text-base lg:text-lg 
-                        truncate
-                        align-middle
-                        text-center 
-                        px-2 py-3
-                    "
-          >
-            {`${format(new Date(`${year}-${month}-${dayNum}`), "EEE")}`}
-          </span>
-        )}
+        <span
+          className={"block text-sm sm:text-sm lg:text-sm truncate px-2 py-3"}
+        >
+          {/* {`${month}월${dayNum}일`} */}
+          <div
+            className={
+              isToday
+                ? "w-6 h-6 bg-[--primary-color] flex justify-center items-center text-white rounded-full"
+                : ""
+            }
+          >{`${dayNum}`}</div>
 
-        {type !== "header" && (
-          <span
-            className={"block text-sm sm:text-sm lg:text-sm truncate px-2 py-3"}
-          >
-            {/* {`${month}월${dayNum}일`} */}
-            <div
-              className={
-                isToday
-                  ? "w-6 h-6 bg-[--primary-color] flex justify-center items-center text-white rounded-full"
-                  : ""
-              }
-            >{`${dayNum}`}</div>
-
-            <div className="flex flex-col gap-1 py-2">
-              {tasks.map((task, idx) => {
-                return (
-                  <div className="text-[--text-color-black-intensive] font-medium hover:text-[--hover-color]">
-                    <p>{task.taskNm}</p>
-                  </div>
-                )
-              })}
-            </div>
-          </span>
-        )}
+          <div className="flex flex-col gap-1 py-2">
+            {tasks.map((task, idx) => {
+              return (
+                <Task
+                  key={"task_" + task.taskNm}
+                  idx={idx}
+                  thisDayStr={thisDayStr}
+                  task={task}
+                />
+              )
+            })}
+          </div>
+        </span>
       </div>
     </div>
   )

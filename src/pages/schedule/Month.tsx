@@ -3,12 +3,14 @@ import { makeMonthForCalendar } from "../../utils/calendar/calendar"
 import CalendarHeader from "./components/CalendarHeader"
 import HeaderDays from "./components/HeaderDays"
 import WeekRow from "./components/WeekRow"
+import { TScheduleState } from "./hooks/useScheduleState"
 
 interface IProps {
   todayDateStr: string
+  scheduleState: TScheduleState
 }
 
-function Month({ todayDateStr }: IProps) {
+function Month({ todayDateStr, scheduleState }: IProps) {
   const { daysOfMonthArr, firstDayOfThisMonth, lastDayOfThisMonth } =
     useMemo(() => {
       return makeMonthForCalendar(todayDateStr)
@@ -22,7 +24,7 @@ function Month({ todayDateStr }: IProps) {
 
       <div className="w-full h-full flex flex-col flex-1">
         {daysOfMonthArr.map((week, idx) => {
-          return <WeekRow idx={idx} week={week} />
+          return <WeekRow idx={idx} week={week} scheduleState={scheduleState} />
         })}
 
         {/* 줄임말 테스트 */}

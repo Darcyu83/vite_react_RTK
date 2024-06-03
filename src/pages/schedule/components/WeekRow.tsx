@@ -1,4 +1,5 @@
 import { format } from "date-fns"
+import { TScheduleState } from "../hooks/useScheduleState"
 import Day from "./Day"
 
 interface IProps {
@@ -9,31 +10,25 @@ interface IProps {
     month: number
     dayNum: number
   }[]
+
+  scheduleState: TScheduleState
 }
 
-const dummyTaskDataPerDay: {
-  [mm_dd: string]: { taskNm: string; details: string }[]
-} = {
-  "06-02": [
-    { taskNm: "Sam's birthday party", details: "스타필드 고고" },
-    { taskNm: "Maple syrup museum2", details: "궁궐" },
-    { taskNm: "Maple syrup museum1", details: "궁궐" },
-  ],
-}
-
-function WeekRow({ type, idx, week }: IProps) {
+function WeekRow({ type, idx, week, scheduleState }: IProps) {
+  const { monthlyTasksPerDay, setMonthlyTasksPerDay } = scheduleState
   return (
     <div key={"week_" + idx} className="w-full h-full flex border-l-0 flex-1">
       {week.map((dateInfo) => {
         const { year, month, dayNum } = dateInfo
 
         const key = format(new Date(`${year}-${month}-${dayNum}`), "MM-dd")
-        const tasks = dummyTaskDataPerDay[key] ?? []
+        const tasks = scheduleState.monthlyTasksPerDay[key] ?? []
         return (
           <Day
             type={type}
-            dateStrMMDD={key}
+            thisDayStr={key}
             dateInfo={{ ...dateInfo, tasks }}
+            setMonthlyTasksPerDay={setMonthlyTasksPerDay}
           />
         )
       })}
