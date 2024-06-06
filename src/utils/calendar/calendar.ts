@@ -1,15 +1,15 @@
-import { differenceInDays } from "date-fns"
+import { addDays, differenceInDays, subDays } from "date-fns"
 import { getMonth1stOrLastDay } from "../date/date"
 
-export const makeMonthForCalendar = (date: string) => {
+export const makeMonthForCalendar = (date: string | Date) => {
   const { year, firstDayOfThisMonth, lastDayOfThisMonth } =
     getMonth1stOrLastDay(
-      new Date(date)
+      typeof date === "string" ? new Date(date) : date
 
       // new Date("2024-03-15")
     )
 
-  const comparedLastDay = new Date(lastDayOfThisMonth)
+  const comparedLastDay = lastDayOfThisMonth
   comparedLastDay.setDate(comparedLastDay.getDate() + 1)
   const diffDays = differenceInDays(comparedLastDay, firstDayOfThisMonth)
   const firstDayIdx = firstDayOfThisMonth.getDay()
@@ -21,17 +21,13 @@ export const makeMonthForCalendar = (date: string) => {
     if (!daysOfMonth[weekNum]) daysOfMonth[weekNum] = []
 
     if (isFirstWeek && daysOfMonth[weekNum].length === 0) {
-      const firstDay = new Date(firstDayOfThisMonth)
-      firstDay.setDate(firstDay.getDate() - firstDayIdx)
-      let lastDayNumOfPreviousMonth = firstDay.getDate()
       for (let i = firstDayIdx; i > 0; i--) {
+        const dayEarlierThanFirstDay = subDays(firstDayOfThisMonth, i)
         daysOfMonth[weekNum].push({
           year: year,
-          month: firstDayOfThisMonth.getMonth(),
-          dayNum: lastDayNumOfPreviousMonth,
+          month: dayEarlierThanFirstDay.getMonth() + 1,
+          dayNum: dayEarlierThanFirstDay.getDate(),
         })
-
-        lastDayNumOfPreviousMonth++
       }
     }
 
@@ -42,15 +38,16 @@ export const makeMonthForCalendar = (date: string) => {
     })
 
     if (dayIdx === diffDays - 1) {
-      let dayStartOfMonth = 1
+      let dayStartOfNextMonth = 1
       const lastDayNum = lastDayOfThisMonth.getDay()
       for (let i = 0; i < 7 - (lastDayNum + 1); i++) {
-        daysOfMonth[weekNum].push({
+        const dayLaterThanLastDay = addDays(lastDayOfThisMonth, i)
+        const nextMonth = daysOfMonth[weekNum].push({
           year: year,
-          month: firstDayOfThisMonth.getMonth() + 2,
-          dayNum: dayStartOfMonth,
+          month: dayLaterThanLastDay.getMonth() + 1,
+          dayNum: dayStartOfNextMonth,
         })
-        dayStartOfMonth++
+        dayStartOfNextMonth++
       }
     }
     if ((firstDayIdx + dayIdx + 1) % 7 === 0) {

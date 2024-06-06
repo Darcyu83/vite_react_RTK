@@ -1,13 +1,17 @@
 import { format } from "date-fns"
 
 interface IProps {
-  todayDateStr: string
+  dateSelected: Date
 }
 
-function CalendarHeader({ todayDateStr }: IProps) {
+function CalendarHeader({ dateSelected }: IProps) {
   return (
     <header className="w-full flex justify-between py-4 px-6">
-      <p className="text-3xl">{format(new Date(todayDateStr), "MMMM yyyy")}</p>
+      <div className="relative before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500">
+        <p className="text-3xl relative px-8 py-1 text-white font-semibold">
+          {format(dateSelected, "MMMM yyyy")}
+        </p>
+      </div>
       <div className="flex gap-6">
         <div className="text-xs border border-slate-600 border-dashed">
           버튼1 : 일별 선택

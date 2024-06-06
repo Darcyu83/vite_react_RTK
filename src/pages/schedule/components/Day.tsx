@@ -7,6 +7,7 @@ import Task from "./Task"
 interface IProps {
   type?: "header"
   thisDayStr: string
+  isOutOfThisMonth: boolean
   dateInfo: {
     year: number
     month: number
@@ -20,7 +21,13 @@ interface IProps {
   setMonthlyTasksPerDay: TScheduleState["setMonthlyTasksPerDay"]
 }
 
-function Day({ type, thisDayStr, dateInfo, setMonthlyTasksPerDay }: IProps) {
+function Day({
+  type,
+  thisDayStr,
+  isOutOfThisMonth,
+  dateInfo,
+  setMonthlyTasksPerDay,
+}: IProps) {
   const { year, month, dayNum, tasks } = dateInfo
 
   const [{ isOver, canDrop }, drop] = useDrop(() => ({
@@ -34,23 +41,28 @@ function Day({ type, thisDayStr, dateInfo, setMonthlyTasksPerDay }: IProps) {
       },
       monitor
     ) => {
-      console.log(item)
+      return true
+    },
+    drop: (item) => {
       setMonthlyTasksPerDay((curr) => {
-        const copied = { ...curr }
+        if (item.originDayStr === thisDayStr) return curr
 
+        const copied = { ...curr }
         copied[item.originDayStr].splice(item.index, 1)
 
-        copied[thisDayStr] = []
-        copied[thisDayStr].concat({
-          taskNm: item.taskNm,
-          details: item.details,
-        })
+        if (!copied[thisDayStr]) copied[thisDayStr] = []
+
+        copied[thisDayStr] = [
+          ...copied[thisDayStr],
+          {
+            taskNm: item.taskNm,
+            details: item.details,
+          },
+        ]
 
         return copied
       })
-      return true
     },
-    drop: (item) => {},
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
       canDrop: !!monitor.canDrop(),
@@ -58,13 +70,12 @@ function Day({ type, thisDayStr, dateInfo, setMonthlyTasksPerDay }: IProps) {
   }))
 
   //   console.log(`${year}-${month}-${dayNum}`)
-  const { isToday, isOutOfThisMonth } = useMemo(() => {
+  const { isToday } = useMemo(() => {
     const today = new Date()
     return {
       isToday: format(today, "MM-dd") === thisDayStr,
-      isOutOfThisMonth: month !== today.getMonth() + 1,
     }
-  }, [thisDayStr, month])
+  }, [thisDayStr])
 
   return (
     <div
@@ -82,7 +93,6 @@ function Day({ type, thisDayStr, dateInfo, setMonthlyTasksPerDay }: IProps) {
         <span
           className={"block text-sm sm:text-sm lg:text-sm truncate px-2 py-3"}
         >
-          {/* {`${month}월${dayNum}일`} */}
           <div
             className={
               isToday
@@ -91,18 +101,21 @@ function Day({ type, thisDayStr, dateInfo, setMonthlyTasksPerDay }: IProps) {
             }
           >{`${dayNum}`}</div>
 
-          <div className="flex flex-col gap-1 py-2">
+          <ul
+            role="list"
+            className="flex flex-col gap-1 py-2 marker:text-sky-400 list-disc pl-5 space-y-3"
+          >
             {tasks.map((task, idx) => {
               return (
                 <Task
-                  key={"task_" + task.taskNm}
+                  key={"task_" + idx + task.taskNm}
                   idx={idx}
                   thisDayStr={thisDayStr}
                   task={task}
                 />
               )
             })}
-          </div>
+          </ul>
         </span>
       </div>
     </div>

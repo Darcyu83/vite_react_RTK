@@ -6,25 +6,33 @@ import WeekRow from "./components/WeekRow"
 import { TScheduleState } from "./hooks/useScheduleState"
 
 interface IProps {
-  todayDateStr: string
+  dateSelected: Date
   scheduleState: TScheduleState
 }
 
-function Month({ todayDateStr, scheduleState }: IProps) {
+function Month({ dateSelected, scheduleState }: IProps) {
   const { daysOfMonthArr, firstDayOfThisMonth, lastDayOfThisMonth } =
     useMemo(() => {
-      return makeMonthForCalendar(todayDateStr)
-    }, [todayDateStr])
+      return makeMonthForCalendar(dateSelected)
+    }, [dateSelected])
 
   return (
     <div className="border border-[--border-color-black] min-h-dvh h-full rounded flex flex-col">
-      <CalendarHeader todayDateStr={todayDateStr} />
+      <CalendarHeader dateSelected={dateSelected} />
 
       <HeaderDays idx={0} week={daysOfMonthArr[0]} />
 
       <div className="w-full h-full flex flex-col flex-1">
         {daysOfMonthArr.map((week, idx) => {
-          return <WeekRow idx={idx} week={week} scheduleState={scheduleState} />
+          return (
+            <WeekRow
+              key={"week_row_" + idx}
+              idx={idx}
+              week={week}
+              dateSelected={dateSelected}
+              scheduleState={scheduleState}
+            />
+          )
         })}
 
         {/* 줄임말 테스트 */}

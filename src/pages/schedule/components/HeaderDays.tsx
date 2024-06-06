@@ -25,6 +25,7 @@ function HeaderDays({ type, idx, week }: IProps) {
     <div key={"week_" + idx} className="w-full h-full flex border-t border-b">
       {week.map((dateInfo) => {
         const { year, month, dayNum } = dateInfo
+        console.log(`${year}-${month}-${dayNum}`)
         return (
           <div
             key={"week_day_num_" + dateInfo.month + dateInfo.dayNum}
@@ -43,6 +44,7 @@ function HeaderDays({ type, idx, week }: IProps) {
                         px-2 py-3
                     "
               >
+                {/* {`${year}-${month}-${dayNum}`} */}
                 {`${format(new Date(`${year}-${month}-${dayNum}`), "EEE")}`}
               </span>
             </div>

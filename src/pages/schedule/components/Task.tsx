@@ -25,16 +25,18 @@ function Task({ idx, thisDayStr, task }: IProps) {
   }))
 
   return (
-    <>
+    <li
+      ref={drag}
+      draggable
+      className="relative before:content-[''] before:block before:absolute before:border before:border-red-500 before:w-full before:hover:border-slate-600"
+    >
       <DragPreviewImage connect={preview} src="/vite.svg" />
-      <div
-        ref={drag}
-        draggable
-        className="text-[--text-color-black-intensive] font-medium hover:text-[--hover-color]"
-      >
-        <p>{task.taskNm}</p>
+      <div className="relative">
+        <span className="font-medium hover:text-[--hover-color] text-[--text-color-black-intensive] relative">
+          {task.taskNm}
+        </span>
       </div>
-    </>
+    </li>
   )
 }
 

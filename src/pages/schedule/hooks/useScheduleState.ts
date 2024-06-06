@@ -29,6 +29,7 @@ const dummyTaskDataPerDay: {
 }
 
 export type TScheduleState = ReturnType<typeof useScheduleState>
+
 function useScheduleState() {
   const [monthlyTasksPerDay, setMonthlyTasksPerDay] =
     useState(dummyTaskDataPerDay)

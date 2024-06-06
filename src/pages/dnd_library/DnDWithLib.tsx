@@ -11,7 +11,7 @@ function DnDWithLib(props: IProps) {
     useDndColToCol()
 
   return (
-    <DndProvider backend={HTML5Backend}>
+    <DndProvider key={"dnd_provider_test"} backend={HTML5Backend}>
       <div> droppableId:: {droppableId}</div>
 
       <div className="border border-dashed border-red-600 p-10">
