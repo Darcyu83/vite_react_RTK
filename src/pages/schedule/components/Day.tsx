@@ -82,7 +82,7 @@ function Day({
       ref={drop}
       key={"week_day_num_" + dateInfo.month + dateInfo.dayNum}
       className={[
-        "truncate flex flex-col justify-start items-start flex-1 border border-[--border-color-black] border-t-0 border-l-0 last:border-r-0",
+        "truncate flex flex-col justify-start items-start flex-1 border border-[--border-color-black] border-t-0 border-l-0",
 
         isOutOfThisMonth && type !== "header"
           ? "bg-[--bg-color-disabled] text-[--text-color-disabled]"

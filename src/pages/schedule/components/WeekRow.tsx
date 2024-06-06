@@ -19,11 +19,11 @@ function WeekRow({ type, idx, dateSelected, week, scheduleState }: IProps) {
   const { monthlyTasksPerDay, setMonthlyTasksPerDay } = scheduleState
 
   return (
-    <div key={"week_" + idx} className="w-full h-full flex border-l-0 flex-1">
+    <div key={"week_" + idx} className="w-full h-full flex flex-1">
       {week.map((dateInfo) => {
         const { year, month, dayNum } = dateInfo
 
-        console.log("yuds ===== ", year, month, dayNum)
+        console.log("yuds ===== ")
 
         const key = format(new Date(`${year}-${month}-${dayNum}`), "MM-dd")
         const tasks = scheduleState.monthlyTasksPerDay[key] ?? []

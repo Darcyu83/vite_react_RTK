@@ -20,9 +20,9 @@ const dummyTaskDataPerDay: {
   ],
 }
 
-function HeaderDays({ type, idx, week }: IProps) {
+function TableHeaderDays({ type, idx, week }: IProps) {
   return (
-    <div key={"week_" + idx} className="w-full h-full flex border-t border-b">
+    <div key={"week_" + idx} className="w-full h-full flex">
       {week.map((dateInfo) => {
         const { year, month, dayNum } = dateInfo
         console.log(`${year}-${month}-${dayNum}`)
@@ -30,7 +30,7 @@ function HeaderDays({ type, idx, week }: IProps) {
           <div
             key={"week_day_num_" + dateInfo.month + dateInfo.dayNum}
             className={[
-              "truncate flex flex-col justify-start items-start flex-1 border border-[--border-color-black] border-l-0 border-t-0 border-b-0 last:border-r-0",
+              "truncate flex flex-col justify-start items-start flex-1 ",
             ].join(" ")}
           >
             <div className={"w-full"}>
@@ -42,6 +42,8 @@ function HeaderDays({ type, idx, week }: IProps) {
                         align-middle
                         text-center 
                         px-2 py-3
+                        border border-[--border-color-black] border-l-0 border-t-0
+                        last:rounded-tr
                     "
               >
                 {/* {`${year}-${month}-${dayNum}`} */}
@@ -55,4 +57,4 @@ function HeaderDays({ type, idx, week }: IProps) {
   )
 }
 
-export default HeaderDays
+export default TableHeaderDays

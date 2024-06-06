@@ -1,12 +1,12 @@
 import { useMemo } from "react"
 import { makeMonthForCalendar } from "../../utils/calendar/calendar"
-import CalendarHeader from "./components/CalendarHeader"
-import HeaderDays from "./components/HeaderDays"
+import HeaderDays from "./components/TableHeaderDays"
 import WeekRow from "./components/WeekRow"
 import { TScheduleState } from "./hooks/useScheduleState"
 
 interface IProps {
   dateSelected: Date
+
   scheduleState: TScheduleState
 }
 
@@ -17,9 +17,7 @@ function Month({ dateSelected, scheduleState }: IProps) {
     }, [dateSelected])
 
   return (
-    <div className="border border-[--border-color-black] min-h-dvh h-full rounded flex flex-col">
-      <CalendarHeader dateSelected={dateSelected} />
-
+    <div className="border border-[--border-color-black] min-h-dvh h-full rounded flex flex-col border-b-0 border-r-0">
       <HeaderDays idx={0} week={daysOfMonthArr[0]} />
 
       <div className="w-full h-full flex flex-col flex-1">
@@ -38,7 +36,8 @@ function Month({ dateSelected, scheduleState }: IProps) {
         {/* 줄임말 테스트 */}
         <div style={{ width: "100%", height: "min-content" }}>
           <p
-            className="
+            className=" border-b border-r
+                        rounded-br
             
                         text-sm sm:text-base lg:text-lg 
                         text-ellipsis

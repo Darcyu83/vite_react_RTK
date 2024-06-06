@@ -9,7 +9,7 @@ export const makeMonthForCalendar = (date: string | Date) => {
       // new Date("2024-03-15")
     )
 
-  const comparedLastDay = lastDayOfThisMonth
+  const comparedLastDay = new Date(lastDayOfThisMonth)
   comparedLastDay.setDate(comparedLastDay.getDate() + 1)
   const diffDays = differenceInDays(comparedLastDay, firstDayOfThisMonth)
   const firstDayIdx = firstDayOfThisMonth.getDay()
@@ -36,15 +36,17 @@ export const makeMonthForCalendar = (date: string | Date) => {
       month: firstDayOfThisMonth.getMonth() + 1,
       dayNum: dayIdx + 1,
     })
+    const lastDayNum = lastDayOfThisMonth.getDay()
 
-    if (dayIdx === diffDays - 1) {
+    console.log(" lastDayNum ", lastDayOfThisMonth, lastDayNum)
+    if (dayIdx === diffDays - 1 && lastDayNum !== 6) {
       let dayStartOfNextMonth = 1
-      const lastDayNum = lastDayOfThisMonth.getDay()
+
+      const firstDayOfNextMonth = addDays(lastDayOfThisMonth, 1)
       for (let i = 0; i < 7 - (lastDayNum + 1); i++) {
-        const dayLaterThanLastDay = addDays(lastDayOfThisMonth, i)
-        const nextMonth = daysOfMonth[weekNum].push({
+        daysOfMonth[weekNum].push({
           year: year,
-          month: dayLaterThanLastDay.getMonth() + 1,
+          month: firstDayOfNextMonth.getMonth() + 1,
           dayNum: dayStartOfNextMonth,
         })
         dayStartOfNextMonth++
